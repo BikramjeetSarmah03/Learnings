@@ -11,7 +11,7 @@ export default async function SettingsPage() {
         action={async () => {
           "use server";
 
-          await signOut();
+          await signOut({ redirectTo: "/auth/login" });
         }}
       >
         ROLE:{session?.user.role}

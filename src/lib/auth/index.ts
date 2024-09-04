@@ -11,6 +11,11 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
+  pages: {
+    signIn: "/auth/login",
+    error: "/auth/error",
+    signOut: "/auth/login",
+  },
   callbacks: {
     async jwt({ token }) {
       if (!token.sub) return token;

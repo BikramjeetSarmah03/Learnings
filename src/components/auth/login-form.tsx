@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
 import { useState, useTransition } from "react";
+import { useSearchParams } from "next/navigation";
 
 import { CardWrapper } from "@/components/auth/card-wrapper";
 
@@ -28,6 +29,12 @@ interface LoginFormProps {}
 export function LoginForm({}: LoginFormProps) {
   const [isPending, startTransition] = useTransition();
 
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email already in used with different provider"
+      : "";
+
   const [error, setError] = useState<string | undefined>("");
 
   const form = useForm<z.infer<typeof LoginSchema>>({
@@ -48,6 +55,7 @@ export function LoginForm({}: LoginFormProps) {
     startTransition(() => {
       login(values).then((data) => {
         setError(data?.error);
+        // add success when we add 2FA
       });
     });
   };
@@ -100,7 +108,7 @@ export function LoginForm({}: LoginFormProps) {
             />
           </div>
 
-          <FormError message={error} />
+          <FormError message={error || urlError} />
           <Button type="submit" className="w-full" disabled={isPending}>
             Login
           </Button>

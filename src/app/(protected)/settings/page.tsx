@@ -14,6 +14,7 @@ export default async function SettingsPage() {
           await signOut({ redirectTo: "/auth/login" });
         }}
       >
+        ROLE:{session?.user.role}
         <Button type="submit">Sign Out</Button>
       </form>
     </div>

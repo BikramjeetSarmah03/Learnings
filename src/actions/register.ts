@@ -8,7 +8,7 @@ import { RegisterSchema } from "@/schema";
 import { db } from "@/lib/db";
 import { getUserByEmail } from "@/data/user";
 import { generateVerificationToken } from "@/lib/tokens";
-import { sendEmail } from "@/lib/email";
+import { sendVerificationEmail } from "@/lib/email";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const validatedFields = RegisterSchema.safeParse(values);
@@ -38,20 +38,7 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
   const verificationToken = await generateVerificationToken(email);
 
-  const confirmLink = `http://localhost:3000/auth/new-verification?token=${verificationToken.token}`;
-
-  const html = `
-  <p>Click
-    <a href='${confirmLink}' target='_blank'>Confirm Link </a>
-    to confirm email.
-  </p>
-  `;
-  await sendEmail({
-    sendTo: verificationToken.email,
-    subject: "Confirm your Email",
-    text: "Confirm your email",
-    html,
-  });
+  await sendVerificationEmail(verificationToken.email, verificationToken.token);
 
   return { success: "Confirmation Email Sent!" };
 };

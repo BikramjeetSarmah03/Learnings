@@ -1,14 +1,16 @@
 "use server";
 
 import * as z from "zod";
+import { AuthError } from "next-auth";
 
 import { LoginSchema } from "@/schema";
-import { signIn } from "@/lib/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
-import { AuthError } from "next-auth";
+
 import { getUserByEmail } from "@/data/user";
+
+import { signIn } from "@/lib/auth";
 import { generateVerificationToken } from "@/lib/tokens";
-import { sendEmail } from "@/lib/email";
+import { sendVerificationEmail } from "@/lib/email";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values);
@@ -30,20 +32,10 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
       existingUser.email
     );
 
-    const confirmLink = `http://localhost:3000/auth/new-verification?token=${verificationToken.token}`;
-
-    const html = `
-    <p>Click
-      <a href='${confirmLink}' target='_blank'>Confirm Link </a>
-      to confirm email.
-    </p>
-    `;
-    await sendEmail({
-      sendTo: verificationToken.email,
-      subject: "Confirm your Email",
-      text: "Confirm your email",
-      html,
-    });
+    await sendVerificationEmail(
+      verificationToken.email,
+      verificationToken.token
+    );
 
     return { success: "Confirmation email sent!" };
   }

@@ -1,50 +1,37 @@
-import nodemailer from "nodemailer";
+import { sendEmail } from "./nodemailer";
 
-const SMTP_SERVER_HOST = process.env.SMTP_SERVER_HOST;
-const SMTP_SERVER_USERNAME = process.env.SMTP_SERVER_USERNAME;
-const SMTP_SERVER_PASSWORD = process.env.SMTP_SERVER_PASSWORD;
+export const sendVerificationEmail = async (email: string, token: string) => {
+  const confirmLink = `http://localhost:3000/auth/new-verification?token=${token}`;
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  host: SMTP_SERVER_HOST,
-  port: 587,
-  secure: true,
-  auth: {
-    user: SMTP_SERVER_USERNAME,
-    pass: SMTP_SERVER_PASSWORD,
-  },
-});
+  const html = `
+    <p>Click
+      <a href='${confirmLink}' target='_blank'>Confirm Link </a>
+      to confirm email.
+    </p>
+    `;
 
-export async function sendEmail({
-  sendTo,
-  subject,
-  text,
-  html,
-}: {
-  sendTo?: string;
-  subject: string;
-  text: string;
-  html?: string;
-}) {
-  try {
-    await transporter.verify();
-  } catch (error) {
-    console.error(
-      "Something Went Wrong",
-      SMTP_SERVER_USERNAME,
-      SMTP_SERVER_PASSWORD,
-      error
-    );
-    return;
-  }
-
-  const info = await transporter.sendMail({
-    from: SMTP_SERVER_USERNAME,
-    to: sendTo,
-    subject: subject,
-    text: text,
-    html: html ? html : "",
+  await sendEmail({
+    sendTo: email,
+    subject: "Confirm your Email",
+    text: "Confirm your email",
+    html,
   });
+};
 
-  return info;
-}
+export const sendPasswordResetEmail = async (email: string, token: string) => {
+  const confirmLink = `http://localhost:3000/auth/new-password?token=${token}`;
+
+  const html = `
+    <p>Click
+      <a href='${confirmLink}' target='_blank'>Confirm Link </a>
+      to change password.
+    </p>
+    `;
+
+  await sendEmail({
+    sendTo: email,
+    subject: "Reset your password",
+    text: "Reset your password",
+    html,
+  });
+};

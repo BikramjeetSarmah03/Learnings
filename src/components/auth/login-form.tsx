@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
+import { useState, useTransition } from "react";
+
 import { CardWrapper } from "@/components/auth/card-wrapper";
 
 import {
@@ -20,10 +22,16 @@ import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 
 import { LoginSchema } from "@/schema";
+import { login } from "@/actions/login";
 
 interface LoginFormProps {}
 
 export function LoginForm({}: LoginFormProps) {
+  const [isPending, startTransition] = useTransition();
+
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -33,7 +41,18 @@ export function LoginForm({}: LoginFormProps) {
   });
 
   const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-    console.log(values);
+    /* CAN DO: can use api routes too
+        axios.post("/api/login",values)
+    */
+
+    setError("");
+    setSuccess("");
+    startTransition(() => {
+      login(values).then((data) => {
+        setError(data.error);
+        setSuccess(data.success);
+      });
+    });
   };
 
   return (
@@ -53,7 +72,11 @@ export function LoginForm({}: LoginFormProps) {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="example@example.com" />
+                    <Input
+                      {...field}
+                      disabled={isPending}
+                      placeholder="example@example.com"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -67,7 +90,12 @@ export function LoginForm({}: LoginFormProps) {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="******" type="password" />
+                    <Input
+                      {...field}
+                      disabled={isPending}
+                      placeholder="******"
+                      type="password"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -75,9 +103,9 @@ export function LoginForm({}: LoginFormProps) {
             />
           </div>
 
-          <FormError message="" />
-          <FormSuccess message="" />
-          <Button type="submit" className="w-full">
+          <FormError message={error} />
+          <FormSuccess message={success} />
+          <Button type="submit" className="w-full" disabled={isPending}>
             Login
           </Button>
         </form>

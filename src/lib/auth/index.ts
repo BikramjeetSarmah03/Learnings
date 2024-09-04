@@ -17,6 +17,21 @@ export const {
     signOut: "/auth/login",
   },
   callbacks: {
+    async signIn({ user, account }) {
+      // allow oauth without email verification
+      if (account?.provider !== "credentials") return true;
+
+      if (!user.id) return false;
+
+      const existingUser = await getUserById(user.id);
+
+      // prevent sign in without email verification
+      if (!existingUser?.emailVerified) return false;
+
+      // todo add 2FA check
+
+      return true;
+    },
     async jwt({ token }) {
       if (!token.sub) return token;
 

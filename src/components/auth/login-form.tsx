@@ -85,6 +85,7 @@ export function LoginForm({}: LoginFormProps) {
                     <Input
                       {...field}
                       disabled={isPending}
+                      type="email"
                       placeholder="example@example.com"
                     />
                   </FormControl>

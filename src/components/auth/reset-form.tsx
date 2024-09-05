@@ -67,6 +67,7 @@ export function ResetForm() {
                     <Input
                       {...field}
                       disabled={isPending}
+                      type="email"
                       placeholder="example@example.com"
                     />
                   </FormControl>

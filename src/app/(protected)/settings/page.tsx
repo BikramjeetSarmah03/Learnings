@@ -1,22 +1,22 @@
-import { Button } from "@/components/ui/button";
-import { auth, signOut } from "@/lib/auth";
+"use client";
 
-export default async function SettingsPage() {
-  const session = await auth();
+import { logout } from "@/actions/logout";
+import { Button } from "@/components/ui/button";
+import { useCurrentUser } from "@/hooks/use-current-user";
+
+export default function SettingsPage() {
+  const user = useCurrentUser();
+
+  const onClick = () => {
+    logout();
+  };
 
   return (
-    <div>
-      SettingsPage: {JSON.stringify(session)}
-      <form
-        action={async () => {
-          "use server";
-
-          await signOut({ redirectTo: "/auth/login" });
-        }}
-      >
-        ROLE:{session?.user.role}
-        <Button type="submit">Sign Out</Button>
-      </form>
+    <div className="bg-white p-10 rounded-xl">
+      SettingsPage: ROLE:{user?.role}
+      <Button onClick={onClick} type="submit">
+        Sign Out
+      </Button>
     </div>
   );
 }

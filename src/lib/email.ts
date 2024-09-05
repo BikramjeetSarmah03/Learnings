@@ -35,3 +35,18 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
     html,
   });
 };
+
+export const sendTwoFactorTokenEmail = async (email: string, token: string) => {
+  const html = `
+    <p>
+     Your 2FA Code <b>${token}</b>
+    </p>
+    `;
+
+  await sendEmail({
+    sendTo: email,
+    subject: "2FA Code",
+    text: "2FA Code",
+    html,
+  });
+};

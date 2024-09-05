@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 
-import { NewPasswordSchema } from "@/schema";
+import { NewPasswordSchema } from "@/schemas";
 import { newPassword } from "@/actions/new-password";
 
 export function NewPasswordForm() {

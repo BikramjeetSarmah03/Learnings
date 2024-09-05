@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 
-import { ResetSchema } from "@/schema";
+import { ResetSchema } from "@/schemas";
 import { reset } from "@/actions/reset";
 
 export function ResetForm() {

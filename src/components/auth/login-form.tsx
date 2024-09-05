@@ -56,6 +56,7 @@ export function LoginForm() {
     */
 
     setError("");
+    setSuccess("");
 
     startTransition(() => {
       login(values)

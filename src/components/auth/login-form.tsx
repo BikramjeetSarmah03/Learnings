@@ -152,14 +152,6 @@ export function LoginForm() {
                         disabled={isPending}
                       />
                     </FormControl>
-                    <Button
-                      size={"sm"}
-                      variant={"link"}
-                      className="px-0 font-normal"
-                      asChild
-                    >
-                      <Link href={"/auth/reset"}>Forgot Password ?</Link>
-                    </Button>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -170,7 +162,7 @@ export function LoginForm() {
           <FormError message={error || urlError} />
           <FormSuccess message={success} />
           <Button type="submit" className="w-full" disabled={isPending}>
-            Login
+            {showTwoFactor ? "Confirm" : "Login"}
           </Button>
         </form>
       </Form>

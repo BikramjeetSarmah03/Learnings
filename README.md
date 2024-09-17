@@ -1,3 +1,1 @@
-# My Learnings
-
-## A repo which contains learnings and implementations in different branches...
+# Nextjs Nestjs Boilerplate Monorepo

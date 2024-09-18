@@ -10,7 +10,9 @@
     "format:write": "pnpm format --write",
     "lint": "pnpm exec nx run-many --target=lint",
     "tsc": "pnpm exec nx run-many --target=tsc",
-    "validate": "pnpm format:write && pnpm tsc && pnpm lint"
+    "validate": "pnpm format:write && pnpm tsc && pnpm lint",
+    "prepare": "husky install",
+    "precommit": "lint-staged"
   },
   "keywords": [],
   "author": "",
@@ -18,6 +20,8 @@
   "devDependencies": {
     "prettier": "^3.0.0",
     "typescript": "^5.3.3",
-    "nx": "19.7.3"
+    "nx": "19.7.3",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.9"
   }
 }

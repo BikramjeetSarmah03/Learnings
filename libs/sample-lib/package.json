@@ -1,16 +1,16 @@
 {
-  "name": "monorepo",
+  "name": "@learning/sample-lib",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsc --watch",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "prettier": "^3.0.0",
     "typescript": "^5.3.3"
   }
 }

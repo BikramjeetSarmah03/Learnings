@@ -8,3 +8,4 @@ dist
 
 .nx/cache
 .nx/workspace-data
+progress.md

@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(cuid())
+
+  name  String?
+  image String?
+
+  credentials  Credentials?
+  authProvider AuthProvider?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Credentials {
+  uid  String @id
+  user User   @relation(fields: [uid], references: [id])
+
+  email    String @unique
+  password String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("credentials")
+}
+
+model AuthProvider {
+  uid  String @id
+  user User   @relation(fields: [uid], references: [id])
+
+  type AuthProviderType
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("auth_provider")
+}
+
+enum AuthProviderType {
+  GOOGLE
+  CREDENTIALS
+}

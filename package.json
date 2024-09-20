@@ -1,0 +1,26 @@
+{
+  "name": "trpc_express_nextjs",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "pnpm exec nx run-many -t build",
+    "tsc": "pnpm exec nx run-many -t tsc",
+    "lint": "pnpm exec nx run-many -t lint",
+    "format": "prettier \"{apps,libs}/**/*.{ts,tsx,js,json}\" --ignore-path .gitignore",
+    "format:check": "pnpm format --check",
+    "format:write": "pnpm format --write",
+    "validate": "pnpm format:write && pnpm tsc && pnpm lint",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.10",
+    "nx": "19.8.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5"
+  }
+}

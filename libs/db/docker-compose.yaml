@@ -1,0 +1,26 @@
+services:
+  db:
+    container_name: trpc_db
+    image: postgres
+    restart: always
+    ports:
+      - ${PG_PORT}:5432
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      -db_data_trpc:"/var/lib/postgresql/data"
+  pgadmin:
+    container_name: trpc_pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+    ports:
+      - ${PGADMIN_PORT}: 80
+    depends_on:
+      - db
+volumes:
+ db_trpc:

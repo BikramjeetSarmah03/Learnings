@@ -2,7 +2,6 @@
   "name": "@apps/api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "rm -rf ./dist && tsc",
@@ -13,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@libs/trpc-server": "workspace:^",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0"

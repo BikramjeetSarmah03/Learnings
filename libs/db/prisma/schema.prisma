@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id        String   @id
+  id        String   @id @default(cuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String?
@@ -25,17 +25,17 @@ model User {
 }
 
 model Admin {
-  id   String @id
+  id   String @id @default(cuid())
   user User   @relation(fields: [id], references: [id])
 }
 
 model Manager {
-  id   String @id
+  id   String @id @default(cuid())
   user User   @relation(fields: [id], references: [id])
 }
 
 model Credentials {
-  id           String   @id
+  id           String   @id @default(cuid())
   email        String   @unique
   user         User     @relation(fields: [id], references: [id])
   passwordHash String
@@ -44,7 +44,7 @@ model Credentials {
 }
 
 model AuthProvider {
-  id String @id
+  id String @id @default(cuid())
 
   type AuthProviderType
   user User             @relation(fields: [id], references: [id])

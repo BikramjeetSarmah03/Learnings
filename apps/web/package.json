@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@libs/forms": "workspace:^",
     "@libs/trpc-client": "workspace:^",
     "next": "14.2.13",
     "react": "^18",

@@ -2,6 +2,7 @@
 
 import { useFormRegister } from '@libs/forms/src/register'
 import { trpcClient } from '@libs/trpc-client/src/client'
+import { signIn } from 'next-auth/react'
 
 export default function Register() {
   const {
@@ -15,10 +16,15 @@ export default function Register() {
   return (
     <form
       onSubmit={handleSubmit(async (data) => {
-        console.log({ data })
         const user = await mutateAsync(data)
 
-        console.log({ user })
+        if (user) {
+          await signIn('credentials', {
+            email: data.email,
+            password: data.password,
+            callbackUrl: '/',
+          })
+        }
       })}
     >
       <input placeholder="Name" type="text" {...register('name')} />

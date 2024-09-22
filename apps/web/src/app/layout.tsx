@@ -3,6 +3,7 @@ import localFont from 'next/font/local'
 import './globals.css'
 
 import { TrpcProvider } from '@libs/trpc-client/src/provider'
+import { NextAuthProvider } from '@/components/provider'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -30,7 +31,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <TrpcProvider>{children}</TrpcProvider>
+        <NextAuthProvider>
+          <TrpcProvider>{children}</TrpcProvider>
+        </NextAuthProvider>
       </body>
     </html>
   )

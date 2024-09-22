@@ -1,0 +1,23 @@
+{
+  "name": "@libs/network",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.7",
+    "next-auth": "^4.24.7"
+  },
+  "peerDependencies": {
+    "next-auth": "^4.24.7"
+  },
+  "dependencies": {
+    "@libs/trpc-client": "workspace:^",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

@@ -3,7 +3,7 @@ import localFont from 'next/font/local'
 import './globals.css'
 
 import { TrpcProvider } from '@libs/trpc-client/src/provider'
-import { NextAuthProvider } from '@/components/provider'
+import { NextAuthProvider } from '@libs/ui/src/components/molecules/SessionProvider'
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',

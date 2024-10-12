@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=hono_vite_db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - hono_tanstack-network
+    ports:
+      - "5432:5432"
+
+networks:
+  hono_tanstack-network:
+    driver: bridge
+
+volumes:
+  postgres-data:

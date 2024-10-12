@@ -1,0 +1,16 @@
+{
+  "name": "monorepo-subdomain-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "turbo run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "turbo": "^2.1.1"
+  },
+  "packageManager": "pnpm@9.0.6"
+}

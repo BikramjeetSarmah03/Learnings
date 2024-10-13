@@ -8,6 +8,9 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core";
 
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
+
 import { userTable } from "./auth";
 import { commentsTable } from "./comments";
 import { postsUpvotesTable } from "./upvotes";
@@ -37,3 +40,14 @@ export const postsRelations = relations(postsTable, ({ one, many }) => ({
   }),
   comments: many(commentsTable),
 }));
+
+export const insertPostSchema = createInsertSchema(postsTable, {
+  title: z.string().min(3, { message: "Title must be atleast 3 chars" }),
+  url: z
+    .string()
+    .trim()
+    .url({ message: "URL must be a valid url" })
+    .optional()
+    .or(z.literal("")),
+  content: z.string().optional(),
+});

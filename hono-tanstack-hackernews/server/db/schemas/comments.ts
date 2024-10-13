@@ -8,6 +8,9 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core";
 
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
+
 import { userTable } from "./auth";
 import { postsTable } from "./posts";
 import { commentsUpvotesTable } from "./upvotes";
@@ -15,7 +18,7 @@ import { commentsUpvotesTable } from "./upvotes";
 export const commentsTable = pgTable("comments", {
   id: serial("id").primaryKey(),
   userId: text("user_id").notNull(),
-  postId: text("post_id").notNull(),
+  postId: integer("post_id").notNull(),
   parentCommentId: integer("parent_comment_id"),
   content: text("content").notNull(),
   isDeleted: boolean("is_deleted"),
@@ -52,3 +55,7 @@ export const commentsRelations = relations(commentsTable, ({ one, many }) => ({
     relationName: "commentUpvotes",
   }),
 }));
+
+export const insertCommnetsSchema = createInsertSchema(commentsTable, {
+  content: z.string().min(3, { message: "Comment must be atleast 3 chars" }),
+});

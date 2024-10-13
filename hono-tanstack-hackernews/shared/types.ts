@@ -1,3 +1,4 @@
+import { insertCommnetsSchema } from "@/db/schemas/comments";
 import { insertPostSchema } from "@/db/schemas/posts";
 import { z } from "zod";
 
@@ -33,16 +34,18 @@ export const createPostSchema = insertPostSchema
   });
 
 export const sortBySchema = z.enum(["points", "recent"]);
-export const orderBySchema = z.enum(["asc", "dsc"]);
+export const orderBySchema = z.enum(["asc", "desc"]);
 
 export const paginationSchema = z.object({
   limit: z.number({ coerce: true }).optional().default(10),
   page: z.number({ coerce: true }).optional().default(1),
   sortBy: sortBySchema.optional().default("points"),
-  order: orderBySchema.optional().default("dsc"),
+  order: orderBySchema.optional().default("desc"),
   author: z.optional(z.string()),
   site: z.string().optional(),
 });
+
+export const createCommentSchema = insertCommnetsSchema.pick({ content: true });
 
 export type Post = {
   id: number;
@@ -57,6 +60,26 @@ export type Post = {
     username: string;
   };
   isUpvoted: boolean;
+};
+
+export type Comment = {
+  id: number;
+  userId: string;
+  content: string;
+  points: number;
+  depth: number;
+  commentCount: number;
+  createdAt: string;
+  postId: number;
+  parentCommentId: number;
+  commentUpvotes: {
+    userId: string;
+  }[];
+  author: {
+    username: string;
+    id: string;
+  };
+  childComments?: Comment[];
 };
 
 export type PaginatedResponse<T> = {

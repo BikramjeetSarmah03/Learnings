@@ -1,5 +1,5 @@
 services:
-  db:
+  postgres_db:
     image: postgres:17
     environment:
       - POSTGRES_USER=user
@@ -10,7 +10,7 @@ services:
     networks:
       - hono_tanstack-network
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
 networks:
   hono_tanstack-network:

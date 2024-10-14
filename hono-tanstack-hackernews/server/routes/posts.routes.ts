@@ -181,7 +181,7 @@ export const postRouter = new Hono<Context>()
       return c.json<SuccessResponse<{ count: number; isUpvoted: boolean }>>(
         {
           success: true,
-          message: "Post points updated",
+          message: "Post updated",
           data: { count: points, isUpvoted: points > 0 },
         },
         200,

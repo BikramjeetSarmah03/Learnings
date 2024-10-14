@@ -1,5 +1,6 @@
 import {
   createFileRoute,
+  Link,
   redirect,
   useNavigate,
   useRouter,
@@ -21,18 +22,17 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { FieldInfo } from "@/components/field-info";
 import { Button } from "@/components/ui/button";
-import { postSignup, userQueryOptions } from "@/lib/api";
+import { postLogin, userQueryOptions } from "@/lib/api";
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { Link } from "@tanstack/react-router";
 
 const signupSearchSchema = z.object({
   redirect: fallback(z.string(), "/").default("/"),
 });
 
-export const Route = createFileRoute("/(auth)/signup")({
-  component: SignUp,
+export const Route = createFileRoute("/(auth)/login")({
   validateSearch: zodSearchValidator(signupSearchSchema),
+  component: Login,
   beforeLoad: async ({ context, search }) => {
     const user = await context.queryClient.ensureQueryData(userQueryOptions());
 
@@ -42,7 +42,7 @@ export const Route = createFileRoute("/(auth)/signup")({
   },
 });
 
-function SignUp() {
+function Login() {
   const search = Route.useSearch();
   const navigate = useNavigate();
   const router = useRouter();
@@ -58,7 +58,7 @@ function SignUp() {
       onChange: loginSchema,
     },
     onSubmit: async ({ value }) => {
-      const res = await postSignup(value.username, value.password);
+      const res = await postLogin(value.username, value.password);
       if (res.success) {
         await queryClient.invalidateQueries({ queryKey: ["user"] });
         router.invalidate();
@@ -87,9 +87,9 @@ function SignUp() {
           }}
         >
           <CardHeader>
-            <CardTitle className="text-center text-2xl">SignUp</CardTitle>
+            <CardTitle className="text-center text-2xl">Login</CardTitle>
             <CardDescription className="text-center">
-              Enter your details below to create an account
+              Enter your details below to login
             </CardDescription>
           </CardHeader>
 
@@ -151,7 +151,7 @@ function SignUp() {
                     disabled={!canSubmit}
                     className="w-full"
                   >
-                    {isSubmitting ? "..." : "Signup"}
+                    {isSubmitting ? "..." : "Login"}
                   </Button>
                 )}
               />
@@ -160,9 +160,9 @@ function SignUp() {
 
           <CardFooter>
             <p className="text-sm text-muted-foreground">
-              Already have an account ?{" "}
-              <Link to="/login" className="text-foreground hover:underline">
-                Login
+              {`Don't`} have an account ?{" "}
+              <Link to="/signup" className="text-foreground hover:underline">
+                SignUp
               </Link>
             </p>
           </CardFooter>

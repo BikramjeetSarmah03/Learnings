@@ -12,8 +12,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@tanstack/react-query";
 import { userQueryOptions } from "@/lib/api";
+import { useState } from "react";
 
 export const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const { data: user } = useQuery(userQueryOptions());
 
   return (
@@ -49,14 +51,18 @@ export const Header = () => {
                   variant={"secondary"}
                   className="bg-secondary-foreground text-primary-foreground hover:bg-secondary-foreground/70"
                 >
-                  <Link to="/">Login</Link>
+                  <Link to="/login">Login</Link>
+                </Button>
+
+                <Button asChild size={"sm"} variant={"outline"}>
+                  <Link to="/signup">SignUp</Link>
                 </Button>
               </>
             )}
           </nav>
         </div>
 
-        <Sheet>
+        <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <Button variant={"secondary"} size={"icon"} className="md:hidden">
               <MenuIcon />
@@ -72,18 +78,34 @@ export const Header = () => {
             </SheetHeader>
 
             <nav className="mt-4 flex flex-col space-y-4">
-              <Link className="hover:underline">New</Link>
-              <Link className="hover:underline">Top</Link>
-              <Link className="hover:underline">Submit</Link>
+              <Link
+                onClick={() => setIsOpen(false)}
+                className="hover:underline"
+              >
+                New
+              </Link>
+              <Link
+                onClick={() => setIsOpen(false)}
+                className="hover:underline"
+              >
+                Top
+              </Link>
+              <Link
+                onClick={() => setIsOpen(false)}
+                className="hover:underline"
+              >
+                Submit
+              </Link>
 
               {user ? (
-                <div className="flex items-center gap-2">
+                <div className="flex w-full justify-between gap-2">
                   <span>{user}</span>
                   <Button
                     asChild
                     size={"sm"}
                     variant={"secondary"}
                     className="bg-secondary-foreground text-primary-foreground hover:bg-secondary-foreground/70"
+                    onClick={() => setIsOpen(false)}
                   >
                     <a href="api/v1/auth/logout">Logout</a>
                   </Button>
@@ -95,8 +117,18 @@ export const Header = () => {
                     size={"sm"}
                     variant={"secondary"}
                     className="bg-secondary-foreground text-primary-foreground hover:bg-secondary-foreground/70"
+                    onClick={() => setIsOpen(false)}
                   >
-                    <Link to="/">Login</Link>
+                    <Link to="/login">Login</Link>
+                  </Button>
+
+                  <Button
+                    onClick={() => setIsOpen(false)}
+                    asChild
+                    size={"sm"}
+                    variant={"outline"}
+                  >
+                    <Link to="/signup">SignUp</Link>
                   </Button>
                 </>
               )}

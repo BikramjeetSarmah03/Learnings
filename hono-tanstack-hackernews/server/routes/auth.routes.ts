@@ -40,7 +40,10 @@ export const authRouter = new Hono<Context>()
       );
     } catch (error) {
       if (error instanceof postgres.PostgresError && error.code === "23505") {
-        throw new HTTPException(409, { message: "Username already in use" });
+        throw new HTTPException(409, {
+          message: "Username already in use",
+          cause: { form: true },
+        });
       }
       throw new HTTPException(500, { message: "Failed to create user" });
     }
@@ -57,6 +60,7 @@ export const authRouter = new Hono<Context>()
     if (!existingUser) {
       throw new HTTPException(401, {
         message: "Invalid Credentials",
+        cause: { form: true },
       });
     }
 
@@ -68,6 +72,7 @@ export const authRouter = new Hono<Context>()
     if (!validPassword) {
       throw new HTTPException(401, {
         message: "Invalid Credentials",
+        cause: { form: true },
       });
     }
 

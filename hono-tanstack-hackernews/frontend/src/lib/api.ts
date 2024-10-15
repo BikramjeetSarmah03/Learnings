@@ -39,7 +39,7 @@ export const postSignup = async (username: string, password: string) => {
 
 export const postLogin = async (username: string, password: string) => {
   try {
-    const res = await client.auth.signup.$post({
+    const res = await client.auth.login.$post({
       json: {
         username,
         password,

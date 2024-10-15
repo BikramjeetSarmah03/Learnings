@@ -51,6 +51,9 @@ export const paginationSchema = z.object({
 
 export const createCommentSchema = insertCommnetsSchema.pick({ content: true });
 
+export type SortBy = z.infer<typeof sortBySchema>;
+export type OrderBy = z.infer<typeof orderBySchema>;
+
 export type Post = {
   id: number;
   title: string;

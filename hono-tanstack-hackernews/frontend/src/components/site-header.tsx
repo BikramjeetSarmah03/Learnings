@@ -30,9 +30,11 @@ export const Header = () => {
             <Link className="hover:underline">New</Link>
             <Link className="hover:underline">Top</Link>
             <Link className="hover:underline">Submit</Link>
+          </nav>
 
+          <div className="hidden items-center gap-4 md:flex">
             {user ? (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-4">
                 <span>{user}</span>
                 <Button
                   asChild
@@ -59,7 +61,7 @@ export const Header = () => {
                 </Button>
               </>
             )}
-          </nav>
+          </div>
         </div>
 
         <Sheet open={isOpen} onOpenChange={setIsOpen}>

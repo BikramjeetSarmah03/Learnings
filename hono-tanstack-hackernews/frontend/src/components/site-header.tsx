@@ -29,7 +29,9 @@ export const Header = () => {
           <nav className="hidden items-center space-x-4 md:flex">
             <Link className="hover:underline">New</Link>
             <Link className="hover:underline">Top</Link>
-            <Link className="hover:underline">Submit</Link>
+            <Link className="hover:underline" to="/submit">
+              Submit
+            </Link>
           </nav>
 
           <div className="hidden items-center gap-4 md:flex">
@@ -93,6 +95,7 @@ export const Header = () => {
                 Top
               </Link>
               <Link
+                to="/submit"
                 onClick={() => setIsOpen(false)}
                 className="hover:underline"
               >

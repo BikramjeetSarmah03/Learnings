@@ -3,6 +3,7 @@ import { hc, InferResponseType } from "hono/client";
 import type { ApiRoutes, ErrorResponse, SuccessResponse } from "@/shared/types";
 import { queryOptions } from "@tanstack/react-query";
 import type { SortBy, OrderBy } from "@/shared/types";
+import { notFound } from "@tanstack/react-router";
 
 const client = hc<ApiRoutes>("/", {
   fetch: (input: RequestInfo | URL, init?: RequestInit) =>
@@ -166,4 +167,24 @@ export const postSubmit = async ({
       isFormError: false,
     } as ErrorResponse;
   }
+};
+
+export const getPost = async (id: number) => {
+  const res = await client.posts[":id"].$get({
+    param: {
+      id: id.toString(),
+    },
+  });
+
+  if (res.ok) {
+    const data = await res.json();
+    return data;
+  }
+
+  if (res.status == 404) {
+    throw notFound();
+  }
+
+  const data = (await res.json()) as unknown as ErrorResponse;
+  throw new Error(data.error);
 };

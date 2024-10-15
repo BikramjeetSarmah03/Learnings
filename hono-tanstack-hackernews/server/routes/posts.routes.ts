@@ -81,7 +81,6 @@ export const postRouter = new Hono<Context>()
         id: postsTable.id,
         title: postsTable.title,
         url: postsTable.url,
-        content: postsTable.content,
         points: postsTable.points,
         commentCount: postsTable.commentCount,
         createdAt: getISOFormatDateQuery(postsTable.createdAt),

@@ -28,17 +28,14 @@ export const PostCard = ({ post, onUpvote }: PostCardProps) => {
         <div className="flex items-start p-3 py-0">
           <div className="flex grow flex-wrap items-center gap-x-2 pb-1">
             <CardTitle className="text-xl font-medium">
-              {post.url ? (
-                <a
-                  href={post.url}
-                  target="_blank"
-                  className="text-foreground hover:text-primary hover:underline"
-                >
-                  {post.title}
-                </a>
-              ) : (
-                <Link to="/">{post.title}</Link>
-              )}
+              <Link
+                to="/post"
+                search={{
+                  id: post.id,
+                }}
+              >
+                {post.title}
+              </Link>
             </CardTitle>
 
             {post.url ? (

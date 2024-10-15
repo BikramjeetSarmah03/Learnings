@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { useUpvotePost } from "@/lib/api-hooks";
 
 const homeSearchSchema = z.object({
-  sortBy: fallback(sortBySchema, "points").default("recent"),
+  sortBy: fallback(sortBySchema, "points").default("points"),
   order: fallback(orderBySchema, "desc").default("desc"),
   author: z.optional(fallback(z.string(), "")),
   site: z.optional(fallback(z.string(), "")),

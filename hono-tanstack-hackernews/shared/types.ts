@@ -78,7 +78,7 @@ export type Comment = {
   commentCount: number;
   createdAt: string;
   postId: number;
-  parentCommentId: number;
+  parentCommentId: number | null;
   commentUpvotes: {
     userId: string;
   }[];

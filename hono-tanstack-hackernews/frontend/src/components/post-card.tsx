@@ -73,7 +73,7 @@ export const PostCard = ({ post, onUpvote }: PostCardProps) => {
             <span>{relativeTime(post.createdAt)}</span>
             <span>·</span>
 
-            <Link className="hover:underline" to="/">
+            <Link className="hover:underline" to="/" search={{ id: post.id }}>
               {post.commentCount} comments
             </Link>
           </div>

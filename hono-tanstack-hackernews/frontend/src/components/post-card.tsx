@@ -4,6 +4,8 @@ import { cn, relativeTime } from "@/lib/utils";
 import { ChevronUpIcon } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { badgeVariants } from "./ui/badge";
+import { useQuery } from "@tanstack/react-query";
+import { userQueryOptions } from "@/lib/api";
 
 interface PostCardProps {
   post: Post;
@@ -11,6 +13,8 @@ interface PostCardProps {
 }
 
 export const PostCard = ({ post, onUpvote }: PostCardProps) => {
+  const { data: user } = useQuery(userQueryOptions());
+
   return (
     <Card className="flex items-start justify-start pt-3">
       <button
@@ -19,6 +23,7 @@ export const PostCard = ({ post, onUpvote }: PostCardProps) => {
           "ml-3 flex flex-col items-center justify-center text-muted-foreground hover:text-primary",
           post.isUpvoted ? "text-primary" : "",
         )}
+        disabled={!user}
       >
         <ChevronUpIcon size={20} />
         <span className="text-xs font-medium">{post.points}</span>
@@ -73,7 +78,11 @@ export const PostCard = ({ post, onUpvote }: PostCardProps) => {
             <span>{relativeTime(post.createdAt)}</span>
             <span>·</span>
 
-            <Link className="hover:underline" to="/" search={{ id: post.id }}>
+            <Link
+              className="hover:underline"
+              to="/post"
+              search={{ id: post.id }}
+            >
               {post.commentCount} comments
             </Link>
           </div>

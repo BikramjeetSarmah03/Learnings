@@ -263,21 +263,21 @@ export const postRouter = new Hono<Context>()
       const { id } = c.req.valid("param");
       const { limit, page, sortBy, order, includeChildren } =
         c.req.valid("query");
-
       const offset = (page - 1) * limit;
 
-      const [postExist] = await db
+      const [postExists] = await db
         .select({ exists: sql`1` })
         .from(postsTable)
         .where(eq(postsTable.id, id))
         .limit(1);
 
-      if (!postExist) {
-        throw new HTTPException(404, { message: "Post doesn't exist" });
+      if (!postExists) {
+        throw new HTTPException(404, { message: "Post not found" });
       }
 
       const sortByColumn =
         sortBy === "points" ? commentsTable.points : commentsTable.createdAt;
+
       const sortOrder =
         order === "desc" ? desc(sortByColumn) : asc(sortByColumn);
 
@@ -307,9 +307,7 @@ export const postRouter = new Hono<Context>()
             },
           },
           commentUpvotes: {
-            columns: {
-              userId: true,
-            },
+            columns: { userId: true },
             where: eq(commentsUpvotesTable.userId, user?.id ?? ""),
             limit: 1,
           },
@@ -323,9 +321,7 @@ export const postRouter = new Hono<Context>()
                 },
               },
               commentUpvotes: {
-                columns: {
-                  userId: true,
-                },
+                columns: { userId: true },
                 where: eq(commentsUpvotesTable.userId, user?.id ?? ""),
                 limit: 1,
               },
@@ -348,7 +344,7 @@ export const postRouter = new Hono<Context>()
       return c.json<PaginatedResponse<Comment[]>>(
         {
           success: true,
-          message: "Comments Fetched",
+          message: "Comments fetched",
           data: comments as Comment[],
           pagination: {
             page,

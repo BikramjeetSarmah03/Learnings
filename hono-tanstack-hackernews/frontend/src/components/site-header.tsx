@@ -27,8 +27,20 @@ export const Header = () => {
           </Link>
 
           <nav className="hidden items-center space-x-4 md:flex">
-            <Link className="hover:underline">New</Link>
-            <Link className="hover:underline">Top</Link>
+            <Link
+              to="/"
+              search={{ sortBy: "recent", order: "desc" }}
+              className="hover:underline"
+            >
+              New
+            </Link>
+            <Link
+              to="/"
+              search={{ sortBy: "points", order: "desc" }}
+              className="hover:underline"
+            >
+              Top
+            </Link>
             <Link className="hover:underline" to="/submit">
               Submit
             </Link>

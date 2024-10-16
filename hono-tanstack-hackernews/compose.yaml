@@ -1,4 +1,18 @@
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - PORT=3000
+      - DATABASE_URL=postgresql://user:password@postgres_db:5432/bikunewsdb
+    depends_on:
+      - postgres_db
+    networks:
+      - hono_tanstack-network
+    ports:
+      - "3000:3000"
+
   postgres_db:
     image: postgres:17
     environment:

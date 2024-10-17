@@ -13,14 +13,16 @@ import {
 import { Request } from 'express';
 
 import { CreateUserDto } from 'src/users/dto/createuser.dto';
+import { UsersService } from 'src/users/services/users/users.service';
 
 @Controller('users')
 export class UsersController {
+  constructor(private userService: UsersService) {}
+
   // query params
   @Get('/')
   queryParam(@Query('user') userId: string) {
-    console.log(`called: ${userId}`);
-    return { msg: `ID: ${userId}` };
+    return this.userService.fetchUsers();
   }
 
   // get

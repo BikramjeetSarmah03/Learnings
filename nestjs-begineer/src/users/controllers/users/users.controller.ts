@@ -1,4 +1,15 @@
-import { Body, Controller, Get, Param, Post, Query, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Query,
+  Req,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { Request } from 'express';
 
 import { CreateUserDto } from 'src/users/dto/createuser.dto';
@@ -27,7 +38,7 @@ export class UsersController {
   // nested params
   @Get('/:id/:postId')
   getUserByIdPost(
-    @Param('id') userId: string,
+    @Param('id', ParseIntPipe) userId: number,
     @Param('postId') postId: string,
   ) {
     return {
@@ -43,6 +54,7 @@ export class UsersController {
 
   //   proper way with dto
   @Post('/proper')
+  @UsePipes(new ValidationPipe())
   createUserProper(@Body() userData: CreateUserDto) {
     return { msg: 'Post', body: userData };
   }

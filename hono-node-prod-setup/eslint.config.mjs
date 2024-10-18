@@ -15,18 +15,16 @@ export default antfu(
   {
     rules: {
       "no-console": ["warn"],
+      "no-unused-vars": ["error"],
+
       "antfu/no-top-level-await": ["off"],
+
       "node/prefer-global/process": ["off"],
       "node/no-process-env": ["error"],
+
       "style/eol-last": "off",
       "style/comma-dangle": "off",
-      "no-unused-vars": ["error"],
-      "perfectionist/sort-imports": [
-        "error",
-        {
-          internalPattern: ["@/**"],
-        },
-      ],
+
       "unicorn/filename-case": [
         "error",
         {

@@ -8,7 +8,6 @@
     "lint:fix": "npm run lint --fix"
   },
   "dependencies": {
-    "@antfu/eslint-config": "^3.8.0",
     "@hono/node-server": "^1.13.2",
     "@hono/zod-openapi": "^0.16.4",
     "@scalar/hono-api-reference": "^0.5.155",
@@ -22,6 +21,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^3.8.0",
     "@types/node": "^20.11.17",
     "eslint": "^9.12.0",
     "tsc-alias": "^1.8.10",

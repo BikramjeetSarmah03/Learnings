@@ -1,5 +1,6 @@
 import { configureOpenAPI } from "@/lib/configure-openapi";
 import createApp from "@/lib/create-app";
+
 import index from "@/routes/index.routes";
 import tasks from "@/routes/tasks/tasks.index";
 

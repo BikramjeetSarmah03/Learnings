@@ -20,6 +20,7 @@ export default antfu(
       "node/no-process-env": ["error"],
       "style/eol-last": "off",
       "style/comma-dangle": "off",
+      "no-unused-vars": ["error"],
       "perfectionist/sort-imports": [
         "error",
         {

@@ -1,4 +1,4 @@
-import type { OpenAPIHono } from "@hono/zod-openapi";
+import type { OpenAPIHono, RouteConfig, RouteHandler } from "@hono/zod-openapi";
 import type { PinoLogger } from "hono-pino";
 
 export interface AppBindings {
@@ -8,3 +8,10 @@ export interface AppBindings {
 }
 
 export type AppOpenAPI = OpenAPIHono<AppBindings>;
+
+export * as HttpStatusCodes from "stoker/http-status-codes";
+
+export type AppRouteHandler<R extends RouteConfig> = RouteHandler<
+  R,
+  AppBindings
+>;

@@ -8,6 +8,7 @@ import {
 import { createErrorSchema, IdParamsSchema } from "stoker/openapi/schemas";
 
 import { HttpStatusCodes } from "@/lib/types";
+
 import {
   insertTasksSchema,
   patchTasksSchema,
@@ -80,7 +81,26 @@ export const patch = createRoute({
   },
 });
 
+export const remove = createRoute({
+  path: "/tasks/{id}",
+  method: "delete",
+  request: {
+    params: IdParamsSchema,
+  },
+  tags,
+  responses: {
+    [HttpStatusCodes.NO_CONTENT]: {
+      description: "Task Deleted",
+    },
+    [HttpStatusCodes.NOT_FOUND]: jsonContent(
+      createErrorSchema(IdParamsSchema),
+      "Invalid ID Error"
+    ),
+  },
+});
+
 export type ListRoute = typeof list;
 export type CreateRoute = typeof create;
 export type GetOneRoute = typeof getOne;
 export type PatchRoute = typeof patch;
+export type RemoveRoute = typeof remove;

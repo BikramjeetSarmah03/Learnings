@@ -1,13 +1,28 @@
+import type { PinoLogger } from "hono-pino";
+
 import { OpenAPIHono } from "@hono/zod-openapi";
-import { logger } from "hono/logger";
 import { notFound, onError } from "stoker/middlewares";
 
-const app = new OpenAPIHono();
+import { pinoLogger } from "@/middlewares/logger";
 
-app.use(logger());
+interface AppBindings {
+  Variables: {
+    logger: PinoLogger;
+  };
+}
+
+const app = new OpenAPIHono<AppBindings>();
+
+app.use(pinoLogger());
 
 app.get("/", (c) => {
   return c.text("Hello Hono!");
+});
+
+app.get("/error", (c) => {
+  c.status(422);
+  c.var.logger.info("WOW! Logger");
+  throw new Error("Ohh No!");
 });
 
 app.notFound(notFound);

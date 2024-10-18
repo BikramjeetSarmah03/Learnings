@@ -9,11 +9,14 @@
     "@antfu/eslint-config": "^3.8.0",
     "@hono/node-server": "^1.13.2",
     "@hono/zod-openapi": "^0.16.4",
+    "dotenv": "^16.4.5",
+    "dotenv-expand": "^11.0.6",
     "hono": "^4.6.5",
     "hono-pino": "^0.3.0",
     "pino": "^9.5.0",
     "pino-pretty": "^11.3.0",
-    "stoker": "^1.2.7"
+    "stoker": "^1.2.7",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@types/node": "^20.11.17",

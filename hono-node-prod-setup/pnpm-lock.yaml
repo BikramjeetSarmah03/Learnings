@@ -20,6 +20,9 @@ importers:
       hono:
         specifier: ^4.6.5
         version: 4.6.5
+      stoker:
+        specifier: ^1.2.7
+        version: 1.2.7(@asteasolutions/zod-to-openapi@7.2.0(zod@3.23.8))(@hono/zod-openapi@0.16.4(hono@4.6.5)(zod@3.23.8))(hono@4.6.5)(openapi3-ts@4.4.0)
     devDependencies:
       '@types/node':
         specifier: ^20.11.17
@@ -1555,6 +1558,17 @@ packages:
 
   stable-hash@0.0.4:
     resolution: {integrity: sha512-LjdcbuBeLcdETCrPn9i8AYAZ1eCtu4ECAWtP7UleOiZ9LzVxRzzUZEoZ8zB24nhkQnDWyET0I+3sWokSDS3E7g==}
+
+  stoker@1.2.7:
+    resolution: {integrity: sha512-CYntiWXMfjho7ok5Pyg5fKlqwn29xekzTzRaTF9z7MehK1VayseDP29LE7gYiGXugNB7k/VhXdOSyzwwLKYA8A==}
+    peerDependencies:
+      '@asteasolutions/zod-to-openapi': ^7.0.0
+      '@hono/zod-openapi': ^0.16.0
+      hono: ^4.0.0
+      openapi3-ts: ^4.4.0
+    peerDependenciesMeta:
+      '@hono/zod-openapi':
+        optional: true
 
   string-width@4.2.3:
     resolution: {integrity: sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g==}
@@ -3430,6 +3444,14 @@ snapshots:
   spdx-license-ids@3.0.20: {}
 
   stable-hash@0.0.4: {}
+
+  stoker@1.2.7(@asteasolutions/zod-to-openapi@7.2.0(zod@3.23.8))(@hono/zod-openapi@0.16.4(hono@4.6.5)(zod@3.23.8))(hono@4.6.5)(openapi3-ts@4.4.0):
+    dependencies:
+      '@asteasolutions/zod-to-openapi': 7.2.0(zod@3.23.8)
+      hono: 4.6.5
+      openapi3-ts: 4.4.0
+    optionalDependencies:
+      '@hono/zod-openapi': 0.16.4(hono@4.6.5)(zod@3.23.8)
 
   string-width@4.2.3:
     dependencies:

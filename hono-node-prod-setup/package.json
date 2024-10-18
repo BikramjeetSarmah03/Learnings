@@ -1,0 +1,21 @@
+{
+  "name": "hono-node-prod-setup",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint --fix"
+  },
+  "dependencies": {
+    "@antfu/eslint-config": "^3.8.0",
+    "@hono/node-server": "^1.13.2",
+    "@hono/zod-openapi": "^0.16.4",
+    "hono": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.17",
+    "eslint": "^9.12.0",
+    "eslint-plugin-format": "^0.1.2",
+    "tsc-alias": "^1.8.10",
+    "tsx": "^4.7.1"
+  }
+}

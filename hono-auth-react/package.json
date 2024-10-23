@@ -1,0 +1,17 @@
+{
+  "name": "hono-auth-react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "check-types": "tsc --noEmit",
+    "dev:all": "turbo run dev"
+  },
+  "keywords": [],
+  "packageManager": "pnpm@8.0.0",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "turbo": "^2.2.3"
+  }
+}

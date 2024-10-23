@@ -4,8 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "check-types": "tsc --noEmit",
-    "dev:all": "turbo run dev"
+    "build": "turbo run build",
+    "clean": "turbo run clean",
+    "clean:next": "find . -name  '.next' -type d -exec rm -rf {} +",
+    "dev:all": "turbo run dev",
+    "db:push": "turbo run --filter=@packages/db db:push",
+    "db:generate": "turbo run --filter=@packages/db db:generate",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck"
   },
   "keywords": [],
   "packageManager": "pnpm@8.0.0",

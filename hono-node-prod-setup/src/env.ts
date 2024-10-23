@@ -1,8 +1,17 @@
 import { config } from "dotenv";
 import { expand } from "dotenv-expand";
 import { z } from "zod";
+import path from "node:path";
 
-expand(config());
+expand(
+  config({
+    path: path.resolve(
+      process.cwd(),
+      // eslint-disable-next-line node/no-process-env
+      process.env.NODE_ENV === "test" ? ".env.test" : ".env"
+    ),
+  })
+);
 
 const EnvSchema = z
   .object({

@@ -1,7 +1,9 @@
+import { eq } from "drizzle-orm";
+
 import {
+  type AppRouteHandler,
   HttpStatusCodes,
   HttpStatusPhrases,
-  type AppRouteHandler,
 } from "@/lib/types";
 
 import db from "@/db";
@@ -12,8 +14,8 @@ import type {
   GetOneRoute,
   ListRoute,
   PatchRoute,
+  RemoveRoute,
 } from "./task.routes";
-import { eq } from "drizzle-orm";
 
 export const list: AppRouteHandler<ListRoute> = async (c) => {
   const tasks = await db.query.tasks.findMany();
@@ -35,15 +37,16 @@ export const getOne: AppRouteHandler<GetOneRoute> = async (c) => {
     },
   });
 
-  if (!task)
+  if (!task) {
     return c.json(
       {
         message: HttpStatusPhrases.NOT_FOUND,
       },
       HttpStatusCodes.NOT_FOUND
     );
+  }
 
-  return c.json(task, 200);
+  return c.json(task, HttpStatusCodes.OK);
 };
 
 export const patch: AppRouteHandler<PatchRoute> = async (c) => {
@@ -56,13 +59,31 @@ export const patch: AppRouteHandler<PatchRoute> = async (c) => {
     .where(eq(tasks.id, params.id))
     .returning();
 
-  if (!task)
+  if (!task) {
     return c.json(
       {
         message: HttpStatusPhrases.NOT_FOUND,
       },
       HttpStatusCodes.NOT_FOUND
     );
+  }
 
-  return c.json(task, 200);
+  return c.json(task, HttpStatusCodes.OK);
+};
+
+export const remove: AppRouteHandler<RemoveRoute> = async (c) => {
+  const params = c.req.valid("param");
+
+  const result = await db.delete(tasks).where(eq(tasks.id, params.id));
+
+  if (result.rowsAffected === 0) {
+    return c.json(
+      {
+        message: HttpStatusPhrases.NOT_FOUND,
+      },
+      HttpStatusCodes.NOT_FOUND
+    );
+  }
+
+  return c.body(null, HttpStatusCodes.NO_CONTENT);
 };

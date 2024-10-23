@@ -22,6 +22,9 @@ export default antfu(
       "node/prefer-global/process": ["off"],
       "node/no-process-env": ["error"],
 
+      "perfectionist/sort-imports": ["off"],
+      "perfectionist/sort-named-imports": ["off"],
+
       "style/eol-last": "off",
       "style/comma-dangle": "off",
 

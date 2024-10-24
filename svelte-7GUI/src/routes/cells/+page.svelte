@@ -104,6 +104,7 @@
 								ondblclick={() => (editedCell = cell)}
 							>
 								{#if editing}
+									<!-- svelte-ignore a11y_autofocus -->
 									<input type="text" {value} oninput={update} autofocus />
 								{:else}
 									<span>{parsedValue}</span>

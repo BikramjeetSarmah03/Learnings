@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,37 +12,38 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
 import { FormEvent, useState } from "react";
+import { SocialAuth } from "./social-auth";
 
 export function RegisterForm() {
-  const [loginData, setLoginData] = useState({
+  const [registerData, setRegisterData] = useState({
     name: "",
     email: "",
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const data = await authClient.signUp.email(
+    await authClient.signUp.email(
       {
-        email: loginData.email,
-        password: loginData.password,
-        name: loginData.name,
+        email: registerData.email,
+        password: registerData.password,
+        name: registerData.name,
       },
       {
         onRequest: (ctx) => {
           console.log("ON REQUEST: ", { ctx });
         },
-        onSuccess: (ctx) => {
-          console.log("ON SUCCESS: ", { ctx });
+        onSuccess: () => {
+          navigate({ to: "/profile" });
         },
         onError: (ctx) => {
           console.log("ON ERROR: ", { ctx });
         },
       }
     );
-
-    console.log({ data });
   };
 
   return (
@@ -61,9 +62,9 @@ export function RegisterForm() {
               id="name"
               placeholder="full name"
               required
-              value={loginData.name}
+              value={registerData.name}
               onChange={(e) =>
-                setLoginData({ ...loginData, name: e.target.value })
+                setRegisterData({ ...registerData, name: e.target.value })
               }
             />
           </div>
@@ -74,9 +75,9 @@ export function RegisterForm() {
               type="email"
               placeholder="m@example.com"
               required
-              value={loginData.email}
+              value={registerData.email}
               onChange={(e) =>
-                setLoginData({ ...loginData, email: e.target.value })
+                setRegisterData({ ...registerData, email: e.target.value })
               }
             />
           </div>
@@ -91,18 +92,17 @@ export function RegisterForm() {
               id="password"
               type="password"
               required
-              value={loginData.password}
+              value={registerData.password}
               onChange={(e) =>
-                setLoginData({ ...loginData, password: e.target.value })
+                setRegisterData({ ...registerData, password: e.target.value })
               }
             />
           </div>
           <Button type="submit" className="w-full">
             Login
           </Button>
-          <Button variant="outline" className="w-full">
-            Login with Google
-          </Button>
+
+          <SocialAuth />
         </form>
         <div className="mt-4 text-sm text-center">
           Already have an account?{" "}

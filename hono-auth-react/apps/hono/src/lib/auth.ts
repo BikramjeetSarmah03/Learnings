@@ -2,16 +2,22 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 
 import { db } from "@packages/db";
-import * as schema from "@packages/db/schemas";
+import {
+  user,
+  session,
+  account,
+  verification,
+} from "@packages/db/schemas/auth";
 
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "sqlite",
     schema: {
-      ...schema,
-      user: schema.user,
+      user,
+      session,
+      account,
+      verification,
     },
-    usePlural: true,
   }),
   trustedOrigins: ["http://localhost:3000", "http://localhost:3001"],
   emailAndPassword: {

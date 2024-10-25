@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -10,8 +10,40 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { FormEvent, useState } from "react";
+import { authClient } from "@/lib/auth-client";
+import { SocialAuth } from "./social-auth";
 
 export function LoginForm() {
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    await authClient.signIn.email(
+      {
+        email: loginData.email,
+        password: loginData.password,
+      },
+      {
+        onRequest: (ctx) => {
+          console.log("ON REQUEST: ", { ctx });
+        },
+        onSuccess: () => {
+          navigate({ to: "/profile" });
+        },
+        onError: (ctx) => {
+          console.log("ON ERROR: ", { ctx });
+        },
+      }
+    );
+  };
+
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
@@ -21,7 +53,7 @@ export function LoginForm() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-4">
+        <form onSubmit={(e) => handleSubmit(e)} className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
             <Input
@@ -29,6 +61,13 @@ export function LoginForm() {
               type="email"
               placeholder="m@example.com"
               required
+              value={loginData.email}
+              onChange={(e) =>
+                setLoginData({
+                  ...loginData,
+                  email: e.target.value,
+                })
+              }
             />
           </div>
           <div className="grid gap-2">
@@ -38,15 +77,25 @@ export function LoginForm() {
                 Forgot your password?
               </Link>
             </div>
-            <Input id="password" type="password" required />
+            <Input
+              id="password"
+              type="password"
+              required
+              value={loginData.password}
+              onChange={(e) =>
+                setLoginData({
+                  ...loginData,
+                  password: e.target.value,
+                })
+              }
+            />
           </div>
           <Button type="submit" className="w-full">
             Login
           </Button>
-          <Button variant="outline" className="w-full">
-            Login with Google
-          </Button>
-        </div>
+
+          <SocialAuth />
+        </form>
         <div className="mt-4 text-sm text-center">
           Don&apos;t have an account?{" "}
           <Link to="/register" className="underline">

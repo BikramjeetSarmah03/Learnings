@@ -8,6 +8,7 @@
     "@hono/node-server": "^1.13.2",
     "@packages/db": "workspace:^",
     "@packages/env": "workspace:^",
+    "better-auth": "0.5.4-beta.6",
     "hono": "^4.6.6",
     "stoker": "^1.2.7"
   },

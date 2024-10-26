@@ -19,7 +19,11 @@ export const auth = betterAuth({
       verification,
     },
   }),
-  trustedOrigins: ["http://localhost:3000", "http://localhost:3001"],
+  trustedOrigins: [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://localhost:3002",
+  ],
   emailAndPassword: {
     enabled: true,
   },

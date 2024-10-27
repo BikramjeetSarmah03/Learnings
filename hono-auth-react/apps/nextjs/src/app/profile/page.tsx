@@ -1,27 +1,28 @@
-"use client";
+import { betterFetch } from "@better-fetch/fetch";
+import { headers } from "next/headers";
 
-import { Button } from "@/components/ui/button";
-import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import { Session } from "@apps/hono/src/lib/types";
 
-export default function ServerComponent() {
-  const { data: session, isPending, isRefetching } = authClient.useSession();
+import { LogoutButton } from "@/components/logout-button";
 
-  if (!isPending && !isRefetching && !session) {
-    return redirect("/login");
-  }
+export default async function Profile() {
+  const headerList = await headers();
+
+  const { data: session } = await betterFetch<Session>(
+    "/api/auth/get-session",
+    {
+      baseURL: "http://localhost:3000",
+      headers: {
+        cookie: headerList.get("cookie") || "",
+      },
+    }
+  );
 
   return (
     <div>
       Hello {session?.user.name}:{session?.user.email} profile page: This is
       protected
-      <Button
-        onClick={() => {
-          authClient.signOut();
-        }}
-      >
-        Logout
-      </Button>
+      <LogoutButton>Logout</LogoutButton>
     </div>
   );
 }

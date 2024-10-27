@@ -38,7 +38,8 @@ export function LoginForm() {
         onRequest: (ctx) => {
           console.log("ON REQUEST: ", { ctx });
         },
-        onSuccess: () => {
+        onSuccess: (ctx) => {
+          console.log("SUCCESS: ", { ctx });
           router.push("/profile");
         },
         onError: (ctx) => {

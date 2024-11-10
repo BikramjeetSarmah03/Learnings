@@ -42,4 +42,8 @@ export const expensesRoutes = new Hono()
     const deletedExpense = expenses.splice(index, 1)[0];
 
     return c.json({ expense: deletedExpense });
+  })
+  .get("/total-spent", (c) => {
+    const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
+    return c.json({ total });
   });

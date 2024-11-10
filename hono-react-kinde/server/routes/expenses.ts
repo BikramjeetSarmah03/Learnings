@@ -1,8 +1,8 @@
 import { Hono } from "hono";
 import { zValidator } from "@hono/zod-validator";
 
-import { createExpenseSchema } from "../shared/schemas";
-import { expenses } from "../shared/data/fake";
+import { createExpenseSchema } from "../..//shared/schemas";
+import { expenses } from "../../shared/data/fake";
 
 export const expensesRoutes = new Hono()
   .get("/", (c) => {

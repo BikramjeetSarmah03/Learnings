@@ -6,16 +6,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useLayoutEffect, useState } from "react";
+import { apiClient } from "./lib/api";
 
 export const App = () => {
   const [totalSpent, setTotalSpent] = useState(0);
 
   useLayoutEffect(() => {
     async function fetchTotal() {
-      const res = await fetch("/api/expenses/total-spent");
-      const data = await res.json();
+      const data = (await apiClient.expenses["total-spent"].$get()).json();
 
-      setTotalSpent(data.total);
+      setTotalSpent((await data).total);
     }
 
     fetchTotal();

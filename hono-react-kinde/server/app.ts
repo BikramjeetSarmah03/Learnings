@@ -11,6 +11,8 @@ app.get("/", (c) => {
   return c.json({ message: "Hey working..." });
 });
 
-app.route("/api/expenses", expensesRoutes);
+const apiRoutes = app.basePath("/api").route("/expenses", expensesRoutes);
 
 export default app;
+
+export type ApiTypes = typeof apiRoutes;

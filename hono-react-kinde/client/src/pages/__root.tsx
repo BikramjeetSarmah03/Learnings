@@ -11,7 +11,7 @@ export const Route = createRootRoute({
           All Expenses
         </Link>
         <Link to="/create-expense" className="[&.active]:font-bold">
-          Create Expenses
+          Create
         </Link>
       </div>
       <hr />

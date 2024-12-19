@@ -9,59 +9,62 @@
 	} from '$lib/components/ui/card';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
-	import { Checkbox } from '$lib/components/ui/checkbox';
 	import { Button } from '$lib/components/ui/button';
-	import { toast } from 'svelte-sonner';
 
-	import { authClient } from '$lib/auth-client';
+	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 
-	let loading = $state(false);
+	import { authClient } from '$lib/auth-client';
+
+	let loading = false;
 
 	const values = $state({
+		name: '',
 		email: '',
-		password: '',
-		rememberMe: false
+		password: ''
 	});
 
 	async function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
 
-		loading = true;
-		authClient.signIn
+		authClient.signUp
 			.email({
+				name: values.name,
 				email: values.email,
-				password: values.password,
-				rememberMe: values.rememberMe
+				password: values.password
 			})
 			.then((data: any) => {
 				if (data.data) {
-					toast('Successfully Logged In');
-					return goto('/');
+					goto('/');
+					toast('Successfully Registered');
 				} else {
 					toast(data.error.message);
 				}
 			})
 			.catch(() => {
-				toast('Error while signing in');
+				toast('Error while register');
 			})
-			.finally(() => {
-				loading = false;
-			});
+			.finally(() => {});
 	}
 </script>
 
 <Card class="max-w-md">
 	<CardHeader>
-		<CardTitle class="text-lg md:text-xl">Sign In</CardTitle>
+		<CardTitle class="text-lg md:text-xl">Sign UP</CardTitle>
 
 		<CardDescription class="text-xs md:text-sm">
-			Enter your email below to login to your account
+			Enter your email below to register to your account
 		</CardDescription>
 	</CardHeader>
 
 	<CardContent>
 		<form onsubmit={handleSubmit} class="grid gap-4">
+			<div class="grid gap-2">
+				<Label for="name">Name</Label>
+
+				<Input id="name" placeholder="example" required bind:value={values.name} />
+			</div>
+
 			<div class="grid gap-2">
 				<Label for="email">Email</Label>
 
@@ -75,11 +78,7 @@
 			</div>
 
 			<div class="grid gap-2">
-				<div class="flex items-center">
-					<Label for="password">Password</Label>
-
-					<a href="/" class="inline-block ml-auto text-sm underline"> Forgot your password? </a>
-				</div>
+				<Label for="password">Password</Label>
 
 				<Input
 					id="password"
@@ -90,27 +89,17 @@
 				/>
 			</div>
 
-			<div class="flex items-center gap-2">
-				<Checkbox
-					id="remember"
-					checked={values.rememberMe}
-					onCheckedChange={() => (values.rememberMe = !values.rememberMe)}
-				/>
-
-				<Label for="remember">Remember me</Label>
-			</div>
-
 			<Button type="submit" class="w-full" disabled={loading}>
 				{#if loading}
 					<Loader2 class="animate-spin" size="20" />
 				{:else}
-					Login
+					Register
 				{/if}
 			</Button>
 
 			<p>
-				Don't have account ?
-				<a href="/auth/register">Register</a>
+				Already have account ?
+				<a href="/auth/login">Login</a>
 			</p>
 		</form>
 	</CardContent>

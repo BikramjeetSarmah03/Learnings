@@ -1,1 +1,0 @@
-# Nextjs Nestjs Boilerplate Monorepo

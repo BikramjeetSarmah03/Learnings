@@ -1,0 +1,55 @@
+.preview {
+  border: 1px solid var(--border-light);
+  min-height: 10rem;
+  overflow: hidden;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview > .header {
+  border-bottom: 1px solid var(--border-light);
+  background-color: rgb(238, 238, 238);
+  padding: 1rem;
+  height: fit-content;
+}
+.preview > .content {
+  padding: 1rem;
+  background-color: rgb(235, 255, 235);
+  height: 100%;
+  flex-grow: 1;
+}
+
+.content > .msg {
+  background-color: white;
+  padding: 6px 10px;
+  width: fit-content;
+  border: 1px solid var(--border-light);
+  position: relative;
+  border-radius: 5px;
+  border-top-left-radius: 0px;
+  min-width: 8rem;
+}
+
+.msg::before {
+  content: "";
+  background-color: white;
+  position: absolute;
+  top: -1px;
+  left: -10px;
+  height: 8px;
+  width: 10px;
+  border: 1px solid var(--border-light);
+  border-right: 0px;
+  border-bottom-left-radius: 100%;
+}
+
+.msg > .text {
+  font-size: 14px;
+}
+
+.msg > .date {
+  padding-top: 0.2rem;
+  font-size: 10px;
+  text-align: right;
+}

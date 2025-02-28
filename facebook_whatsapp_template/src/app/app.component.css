@@ -1,0 +1,11 @@
+* {
+  --border-light: #d1d1d1;
+}
+
+.wrapper {
+  background-color: rgb(241, 241, 241);
+  padding: 1rem;
+
+  display: grid;
+  grid-template-columns: 3fr 1.5fr;
+}

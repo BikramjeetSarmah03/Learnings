@@ -1,0 +1,13 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+}
+
+.section {
+  border: 1px solid var(--border-light);
+  background-color: white;
+  height: fit-content;
+  padding: 1rem;
+}

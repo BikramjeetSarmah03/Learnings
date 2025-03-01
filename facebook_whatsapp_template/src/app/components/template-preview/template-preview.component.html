@@ -5,7 +5,15 @@
 
   <div class="content">
     <div class="msg">
-      <p class="text">Hi Bikram</p>
+      <div class="text" *ngIf="headerType === 'NONE'">Hi Bikram</div>
+      <div class="text" *ngIf="headerType === 'TEXT'">Hi Text</div>
+
+      <div class="media" *ngIf="headerType !== 'NONE' && headerType !== 'TEXT'">
+        <ion-icon name="image" *ngIf="headerType === 'IMAGE'"></ion-icon>
+        <ion-icon name="play-circle" *ngIf="headerType === 'VIDEO'"></ion-icon>
+        <ion-icon name="document" *ngIf="headerType === 'DOCUMENT'"></ion-icon>
+      </div>
+
       <p class="date">{{ "2025-02-28T19:21:20.315Z" | date : "shortTime" }}</p>
     </div>
   </div>

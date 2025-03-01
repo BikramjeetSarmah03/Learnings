@@ -53,3 +53,18 @@
   font-size: 10px;
   text-align: right;
 }
+
+.msg .media {
+  height: 10rem;
+  width: 14rem;
+  background-color: var(--border-light);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.msg .media > ion-icon {
+  font-size: 30px;
+  color: white;
+}

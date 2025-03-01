@@ -8,6 +8,60 @@
 .section {
   border: 1px solid var(--border-light);
   background-color: white;
-  height: fit-content;
+  min-height: fit-content;
   padding: 1rem;
+}
+
+.section.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section.header .logo {
+  background-color: rgb(8, 124, 8);
+  width: fit-content;
+  padding: 1rem;
+  color: white;
+  border-radius: 5px;
+}
+
+.section.header .text > h4 {
+  height: fit-content;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.logo > ion-icon {
+  font-size: 28px;
+}
+
+.input-box .count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0.5rem;
+  font-size: 14px;
+  background-color: white;
+}
+
+option.circle {
+  height: 4px;
+  width: 4px;
+  border-radius: 50%;
+  border: 1px solid var(--border-light);
+  background-color: red;
+}
+
+/* utility class */
+.relative {
+  position: relative;
+}
+
+.invalid-input {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: var(--bs-form-invalid-color);
 }

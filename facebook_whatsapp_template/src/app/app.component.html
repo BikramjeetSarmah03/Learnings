@@ -1,5 +1,10 @@
 <div class="wrapper">
-  <app-template-form></app-template-form>
+  <app-template-form
+    [headerType]="selectedHeaderType()"
+    (headerTypeChange)="onHeaderTypeChange($event)"
+  ></app-template-form>
 
-  <app-template-preview></app-template-preview>
+  <app-template-preview
+    [headerType]="selectedHeaderType()"
+  ></app-template-preview>
 </div>

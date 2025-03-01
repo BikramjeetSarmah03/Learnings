@@ -9,4 +9,6 @@
   display: grid;
   grid-template-columns: 3fr 1.5fr;
   gap: 1rem;
+
+  min-height: 100%;
 }

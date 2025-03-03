@@ -1,10 +1,289 @@
 <div class="wrapper">
-  <app-template-form
-    [headerType]="selectedHeaderType()"
-    (headerTypeChange)="onHeaderTypeChange($event)"
-  ></app-template-form>
+  <form [formGroup]="templateForm" (submit)="onSubmit()" class="form-wrapper">
+    <div class="section header">
+      <div class="logo">
+        <ion-icon name="megaphone-outline"></ion-icon>
+      </div>
+
+      <div class="text">
+        <h4>{{ formatTemplateName() }}</h4>
+        <p>Marketing</p>
+      </div>
+    </div>
+
+    <div class="section name">
+      <h5>Template name</h5>
+
+      <div class="input-box">
+        <label for="name" class="form-label text-secondary"
+          >Name your template</label
+        >
+        <div class="relative">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Enter a template name"
+            formControlName="name"
+          />
+
+          <span class="count"
+            >{{ templateForm.get("name")?.value.length }} / 512</span
+          >
+
+          <div class="invalid-input">Please enter a valid name</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section content">
+      <div class="header">
+        <h5>Content</h5>
+        <p class="text-secondary">
+          Fill in the header, body and footer sections of your template
+        </p>
+      </div>
+
+      <div class="input-box">
+        <label for="header">
+          Header <span class="text-secondary"> . Optional</span>
+        </label>
+
+        <div class="dropdown mt-2 w-100">
+          <button
+            class="btn btn-light w-100 text-start d-flex align-items-center justify-content-between"
+            type="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <span>
+              {{ selectedHeader() }}
+            </span>
+
+            <ion-icon name="chevron-down-outline"></ion-icon>
+          </button>
+          <ul class="dropdown-menu w-100">
+            <li>
+              <label class="dropdown-item">
+                <input
+                  type="radio"
+                  name="headerOption"
+                  value="NONE"
+                  (change)="onChangeHeader('NONE')"
+                  [checked]="'None' === selectedHeader()"
+                  class="form-check-input me-2"
+                />
+                None
+              </label>
+            </li>
+
+            <li *ngFor="let item of headerOptions">
+              <label class="dropdown-item d-flex align-items-center">
+                <input
+                  type="radio"
+                  name="headerOption"
+                  [value]="item.type"
+                  (change)="onChangeHeader(item.type)"
+                  [checked]="item.type === selectedHeader()"
+                  class="form-check-input me-2"
+                />
+                <ion-icon [name]="item.icon" class="me-1"></ion-icon>
+                <span> {{ item.title }}</span>
+              </label>
+            </li>
+          </ul>
+
+          <div class="input-box mt-3" *ngIf="selectedHeaderType === 'TEXT'">
+            <div class="relative">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter a header"
+                formControlName="name"
+              />
+            </div>
+          </div>
+
+          <div class="input-box mt-3" *ngIf="selectedHeaderType === 'IMAGE'">
+            <div>
+              <h6>Samples for header content</h6>
+              <p class="text-secondary">
+                To help us review your content, provide examples of the media in
+                the header. Do no include any customer information. Cloud API
+                hosted by Meta reviews templates to protech the security and
+                integrity of our services
+              </p>
+            </div>
+            <div class="relative">
+              <label for="image">Choose JPG or PNG File</label>
+              <input
+                id="image"
+                type="file"
+                class="form-control"
+                formControlName="name"
+                placeholder="Choose JPG or PNG file"
+              />
+            </div>
+          </div>
+
+          <div class="input-box mt-3" *ngIf="selectedHeaderType === 'VIDEO'">
+            <div>
+              <h6>Samples for header content</h6>
+              <p class="text-secondary">
+                To help us review your content, provide examples of the media in
+                the header. Do no include any customer information. Cloud API
+                hosted by Meta reviews templates to protech the security and
+                integrity of our services
+              </p>
+            </div>
+            <div class="relative">
+              <label for="video">Choose MP4 File</label>
+              <input
+                id="video"
+                type="file"
+                class="form-control"
+                formControlName="name"
+              />
+            </div>
+          </div>
+
+          <div class="input-box mt-3" *ngIf="selectedHeaderType === 'DOCUMENT'">
+            <div>
+              <h6>Samples for header content</h6>
+              <p class="text-secondary">
+                To help us review your content, provide examples of the media in
+                the header. Do no include any customer information. Cloud API
+                hosted by Meta reviews templates to protech the security and
+                integrity of our services
+              </p>
+            </div>
+            <div class="relative">
+              <label for="document">Choose PDF File</label>
+              <input
+                id="document"
+                type="file"
+                class="form-control"
+                formControlName="name"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-box mt-3">
+        <label for="header"> Body </label>
+
+        <div class="relative">
+          <textarea
+            class="form-control mt-2"
+            placeholder="Enter a template name"
+            formControlName="name"
+            rows="8"
+          ></textarea>
+
+          <span class="count"
+            >{{ templateForm.get("body")?.value.length || 0 }} / 1024</span
+          >
+        </div>
+      </div>
+
+      <div class="input-box mt-3">
+        <label for="header">
+          Footer <span class="text-secondary"> . Optional</span>
+        </label>
+
+        <div class="relative">
+          <input
+            class="form-control mt-2"
+            placeholder="Enter footer"
+            formControlName="name"
+          />
+
+          <span class="count"
+            >{{ templateForm.get("footer")?.value.length || 0 }} / 60</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="section buttons">
+      <div class="header">
+        <h6>Buttons <span class="text-secondary"> . Optional</span></h6>
+        <p class="text-secondary">
+          Create buttons that let customers respond to your message or take
+          action. You can add up to ten buttons. If you add more then three
+          buttons, they will appear in a list
+        </p>
+      </div>
+
+      <div class="dropdown mt-2 w-100">
+        <button
+          class="btn btn-light w-100 text-start d-flex align-items-center justify-content-between"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <div class="d-flex align-items-center gap-1">
+            <ion-icon name="add-outline"></ion-icon>
+
+            Add button
+          </div>
+
+          <ion-icon name="chevron-down-outline"></ion-icon>
+        </button>
+        <ul class="dropdown-menu w-100">
+          <h6>Quick reply buttons</h6>
+          <li class="p-2 dropdown-item">
+            <div class="title">Marketing out-out</div>
+            <p class="desc">Recommended</p>
+          </li>
+
+          <li class="p-2 dropdown-item">
+            <div class="title">Custom</div>
+          </li>
+
+          <hr />
+
+          <h6>Call-to-action buttons</h6>
+
+          <li class="p-2 dropdown-item">
+            <div class="title">Visit website</div>
+            <p class="desc">2 buttons maximum</p>
+          </li>
+
+          <li class="p-2 dropdown-item">
+            <div class="title">Call Phone Number</div>
+            <p class="desc">1 button maximum</p>
+          </li>
+
+          <li class="p-2 dropdown-item">
+            <div class="title">Copy offer code</div>
+            <p class="desc">1 button maximum</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="note">
+        <ion-icon name="bulb-outline"></ion-icon>
+
+        <div>
+          <h6>We recommend adding the marketing opt-out button</h6>
+          <p>
+            Allow customers to request to opt out of all marketing messages.
+            This can help reduce blocks from customers and increase your quality
+            rating.
+            <span> Learn more </span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section save d-flex align-items-center justify-content-between">
+      <button class="btn btn-outline-secondary">Cancel</button>
+      <button class="btn btn-primary">Save</button>
+    </div>
+  </form>
 
   <app-template-preview
-    [headerType]="selectedHeaderType()"
+    [headerType]="selectedHeaderType"
   ></app-template-preview>
 </div>

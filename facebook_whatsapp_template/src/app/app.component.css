@@ -51,7 +51,7 @@
   font-size: 28px;
 }
 
-.input-box .count {
+.count {
   position: absolute;
   top: 0;
   right: 0;
@@ -116,4 +116,38 @@ hr {
 .dropdown-item > .desc {
   font-size: 12px;
   margin-bottom: 0px !important;
+}
+
+.btn_wrapper {
+  margin-top: 1rem;
+}
+
+.btn_list {
+  background-color: rgb(240, 240, 240);
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.btn_item {
+  background-color: white;
+  padding: 0.5rem;
+
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn_item .handle,
+.btn_item .close {
+  border: none;
+  background: transparent;
+  font-size: 24px;
+  margin-top: 0px;
+  padding: 0;
+  width: fit-content;
+  height: 20px;
+}
+
+.btn_item .handle {
+  cursor: grab;
 }

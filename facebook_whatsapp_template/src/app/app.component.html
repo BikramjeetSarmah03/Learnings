@@ -48,7 +48,7 @@
           Header <span class="text-secondary"> . Optional</span>
         </label>
 
-        <div class="dropdown mt-2 w-100">
+        <div class="mt-2 dropdown w-100">
           <button
             class="btn btn-light w-100 text-start d-flex align-items-center justify-content-between"
             type="button"
@@ -92,7 +92,7 @@
             </li>
           </ul>
 
-          <div class="input-box mt-3" *ngIf="selectedHeaderType === 'TEXT'">
+          <div class="mt-3 input-box" *ngIf="selectedHeaderType === 'TEXT'">
             <div class="relative">
               <input
                 type="text"
@@ -103,7 +103,7 @@
             </div>
           </div>
 
-          <div class="input-box mt-3" *ngIf="selectedHeaderType === 'IMAGE'">
+          <div class="mt-3 input-box" *ngIf="selectedHeaderType === 'IMAGE'">
             <div>
               <h6>Samples for header content</h6>
               <p class="text-secondary">
@@ -125,7 +125,7 @@
             </div>
           </div>
 
-          <div class="input-box mt-3" *ngIf="selectedHeaderType === 'VIDEO'">
+          <div class="mt-3 input-box" *ngIf="selectedHeaderType === 'VIDEO'">
             <div>
               <h6>Samples for header content</h6>
               <p class="text-secondary">
@@ -146,7 +146,7 @@
             </div>
           </div>
 
-          <div class="input-box mt-3" *ngIf="selectedHeaderType === 'DOCUMENT'">
+          <div class="mt-3 input-box" *ngIf="selectedHeaderType === 'DOCUMENT'">
             <div>
               <h6>Samples for header content</h6>
               <p class="text-secondary">
@@ -169,12 +169,12 @@
         </div>
       </div>
 
-      <div class="input-box mt-3">
+      <div class="mt-3 input-box">
         <label for="header"> Body </label>
 
         <div class="relative">
           <textarea
-            class="form-control mt-2"
+            class="mt-2 form-control"
             placeholder="Enter a template name"
             formControlName="name"
             rows="8"
@@ -186,14 +186,14 @@
         </div>
       </div>
 
-      <div class="input-box mt-3">
+      <div class="mt-3 input-box">
         <label for="header">
           Footer <span class="text-secondary"> . Optional</span>
         </label>
 
         <div class="relative">
           <input
-            class="form-control mt-2"
+            class="mt-2 form-control"
             placeholder="Enter footer"
             formControlName="name"
           />
@@ -215,14 +215,14 @@
         </p>
       </div>
 
-      <div class="dropdown mt-2 w-100">
+      <div class="mt-2 dropdown w-100">
         <button
           class="btn btn-light w-100 text-start d-flex align-items-center justify-content-between"
           type="button"
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          <div class="d-flex align-items-center gap-1">
+          <div class="gap-1 d-flex align-items-center">
             <ion-icon name="add-outline"></ion-icon>
 
             Add button
@@ -260,6 +260,109 @@
             <p class="desc">1 button maximum</p>
           </li>
         </ul>
+
+        <div class="btn_wrapper">
+          <h6>Quick reply <span class="text-secondary"> . Optional</span></h6>
+
+          <div class="btn_list">
+            <div class="btn_item">
+              <button class="handle">
+                <ion-icon name="reorder-two-outline"></ion-icon>
+              </button>
+
+              <div class="relative w-100">
+                <label class="mb-1" for="type">Type</label>
+                <select name="" id="" class="form-control">
+                  <option value="custom">Custom</option>
+                  <option value="custom">Marketing opt-out</option>
+                </select>
+              </div>
+
+              <div class="relative w-100">
+                <label class="mb-1" for="btnText">Buton Text</label>
+
+                <input
+                  class="form-control"
+                  id="btnText"
+                  type="text"
+                  placeholder="Quick Reply"
+                />
+              </div>
+
+              <div class="relative w-100">
+                <label class="mb-1" for="btnText">Footer Text</label>
+
+                <input
+                  class="form-control"
+                  id="btnText"
+                  type="text"
+                  placeholder="Not interested? Tap Stop promotions"
+                  value="Not interested? Tap Stop promotions"
+                  readonly
+                />
+              </div>
+
+              <button class="close">
+                <ion-icon name="close-outline"></ion-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn_wrapper">
+          <h6>
+            Call to action <span class="text-secondary"> . Optional</span>
+          </h6>
+
+          <div class="btn_list">
+            <div class="btn_item">
+              <button class="handle">
+                <ion-icon name="reorder-two-outline"></ion-icon>
+              </button>
+
+              <div class="w-100">
+                <label class="mb-1" for="type">Type of action</label>
+                <select class="form-control">
+                  <option value="custom">Call phone Number</option>
+                  <option value="custom">Visit Website</option>
+                </select>
+              </div>
+
+              <div class="w-100">
+                <label class="mb-1" for="btnText">Buton Text</label>
+
+                <div class="relative">
+                  <input
+                    class="form-control"
+                    id="btnText"
+                    type="text"
+                    placeholder="Call Phone Number"
+                  />
+
+                  <span class="count"
+                    >{{ templateForm.get("footer")?.value.length || 0 }} /
+                    60</span
+                  >
+                </div>
+              </div>
+
+              <div class="w-100">
+                <label class="mb-1" for="btnText">Phone Number</label>
+
+                <input
+                  class="form-control"
+                  id="btnText"
+                  type="text"
+                  placeholder="Phone Number"
+                />
+              </div>
+
+              <button class="close">
+                <ion-icon name="close-outline"></ion-icon>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="note">

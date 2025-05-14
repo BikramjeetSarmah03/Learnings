@@ -1,5 +1,7 @@
 package main
 
+// var name = "string" // can be declared outside
+
 func main() {
 
 	// var name string = "golang" // with type ( explict )

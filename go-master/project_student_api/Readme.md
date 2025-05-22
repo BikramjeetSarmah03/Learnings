@@ -4,4 +4,4 @@
 4. Git Init and Git ignore
 
 5. make configs ( file based or env based ) ( will use file based .yaml )
-6.
+6. make db ( storage/storage.db ) (sqlite)

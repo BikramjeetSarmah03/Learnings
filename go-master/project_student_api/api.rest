@@ -1,0 +1,14 @@
+@baseUrl = http://localhost:8082/api
+
+###
+
+POST {{baseUrl}}/students
+Content-Type: application/json
+
+{
+    name:"Bikram",
+    email:"bikram@bikram.com",
+    age: 20
+}
+
+###

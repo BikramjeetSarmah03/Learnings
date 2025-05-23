@@ -6,3 +6,5 @@
 5. make configs ( file based or env based ) ( will use file based .yaml )
 6. make db ( storage/storage.db ) (sqlite)
 7. internal or pkg to store packages or configs ( capital letter variables in struct are public, small will be private)
+8. we make response handlers
+9. User go-playground/validator for body validation
